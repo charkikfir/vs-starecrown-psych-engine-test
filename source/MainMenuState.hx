@@ -33,7 +33,7 @@ class MainMenuState extends MusicBeatState
 	private var camAchievement:FlxCamera;
 	
 	var optionShit:Array<String> = [
-		'story_mode',
+		story_mode',
 		'freeplay',
 		#if MODS_ALLOWED 'mods', #end
 		'options',
@@ -126,7 +126,7 @@ class MainMenuState extends MusicBeatState
 
 		FlxG.camera.follow(camFollowPos, null, 1);
 
-		var versionShit:FlxText = new FlxText(12, FlxG.height - 44, 0, "FATA fan made engine" + psychEngineVersion, 12);
+		var versionShit:FlxText = new FlxText(12, FlxG.height - 44, 0, "Psych Engine v" + psychEngineVersion, 12);
 		versionShit.scrollFactor.set();
 		versionShit.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(versionShit);
@@ -154,6 +154,7 @@ class MainMenuState extends MusicBeatState
 
 		#if android
 		addVirtualPad(UP_DOWN, A_B_E);
+		_virtualpad.y = -44;
 		#end
 
 		super.create();
@@ -175,6 +176,7 @@ class MainMenuState extends MusicBeatState
 		if (FlxG.sound.music.volume < 0.8)
 		{
 			FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
+			if(FreeplayState.vocals != null) FreeplayState.vocals.volume += 0.5 * elapsed;
 		}
 
 		var lerpVal:Float = CoolUtil.boundTo(elapsed * 7.5, 0, 1);
@@ -205,8 +207,7 @@ class MainMenuState extends MusicBeatState
 			{
 				if (optionShit[curSelected] == 'donate')
 				{
-					CoolUtil.browserLoad('https://ninja-muffin24.itch.io/funkin
-');
+					CoolUtil.browserLoad('https://ninja-muffin24.itch.io/funkin');
 				}
 				else
 				{
@@ -264,11 +265,13 @@ class MainMenuState extends MusicBeatState
 					});
 				}
 			}
+			#if (desktop || android)
 			else if (FlxG.keys.anyJustPressed(debugKeys) #if android || _virtualpad.buttonE.justPressed #end)
 			{
 				selectedSomethin = true;
 				MusicBeatState.switchState(new MasterEditorMenu());
 			}
+			#end
 		}
 
 		super.update(elapsed);
@@ -276,7 +279,7 @@ class MainMenuState extends MusicBeatState
 		menuItems.forEach(function(spr:FlxSprite)
 		{
 			spr.screenCenter(X);
-                        spr.x += -300; 
+                        spr.x += -300;
 		});
 	}
 
