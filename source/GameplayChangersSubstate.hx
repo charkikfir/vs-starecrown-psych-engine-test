@@ -8,7 +8,6 @@ import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.addons.display.FlxGridOverlay;
 import flixel.group.FlxGroup.FlxTypedGroup;
-import flixel.addons.transition.FlxTransitionableState;
 import flixel.math.FlxMath;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
@@ -55,30 +54,30 @@ class GameplayChangersSubstate extends MusicBeatSubstate
 		else
 		{
 			option.displayFormat = "%v";
-			option.maxValue = 10;
+			option.maxValue = 6;
 		}
 		optionsArray.push(option);
 
 		/*var option:GameplayOption = new GameplayOption('Playback Rate', 'songspeed', 'float', 1);
 		option.scrollSpeed = 1;
 		option.minValue = 0.1;
-		option.maxValue = 7.5;
+		option.maxValue = 10;
 		option.changeValue = 0.1;
 		option.displayFormat = '%vX';
 		optionsArray.push(option);*/
 
 		var option:GameplayOption = new GameplayOption('Health Gain Multiplier', 'healthgain', 'float', 1);
 		option.scrollSpeed = 2.5;
-		option.minValue = -3;
-		option.maxValue = 100;
+		option.minValue = -10;
+		option.maxValue = 500;
 		option.changeValue = 0.1;
 		option.displayFormat = '%vX';
 		optionsArray.push(option);
 
 		var option:GameplayOption = new GameplayOption('Health Loss Multiplier', 'healthloss', 'float', 1);
 		option.scrollSpeed = 2.5;
-		option.minValue = -3;
-		option.maxValue = 100;
+		option.minValue = -10;
+		option.maxValue = 500;
 		option.changeValue = 0.1;
 		option.displayFormat = '%vX';
 		optionsArray.push(option);
@@ -178,11 +177,11 @@ class GameplayChangersSubstate extends MusicBeatSubstate
 
 		if (controls.BACK) {
 			#if android
-                        FlxTransitionableState.skipNextTransOut = true;
+			flixel.addons.transition.FlxTransitionableState.skipNextTransOut = true;
 			FlxG.resetState();
-                        #else
-                        close();
-                        #end
+			#else
+			close();
+			#end
 			ClientPrefs.saveSettings();
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 		}
