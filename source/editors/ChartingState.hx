@@ -84,10 +84,7 @@ class ChartingState extends MusicBeatState
 		['Hey!', "Plays the \"Hey!\" animation from Bopeebo,\nValue 1: BF = Only Boyfriend, GF = Only Girlfriend,\nSomething else = Both.\nValue 2: Custom animation duration,\nleave it blank for 0.6s"],
 		['Set GF Speed', "Sets GF head bopping speed,\nValue 1: 1 = Normal speed,\n2 = 1/2 speed, 4 = 1/4 speed etc.\nUsed on Fresh during the beatbox parts.\n\nWarning: Value must be integer!"],
 		['Philly Glow', "Exclusive to Week 3\nValue 1: 0/1/2 = OFF/ON/Reset Gradient\n \nNo, i won't add it to other weeks."],
-		['Kill Henchmen', "For Mom's songs, don't use this please, i love them :("],
 		['Add Camera Zoom', "Used on MILF on that one \"hard\" part\nValue 1: Camera zoom add (Default: 0.015)\nValue 2: UI zoom add (Default: 0.03)\nLeave the values blank if you want to use Default."],
-		['BG Freaks Expression', "Should be used only in \"school\" Stage!"],
-		['Trigger BG Ghouls', "Should be used only in \"schoolEvil\" Stage!"],
 		['Play Animation', "Plays an animation on a Character,\nonce the animation is completed,\nthe animation changes to Idle\n\nValue 1: Animation to play.\nValue 2: Character (Dad, BF, GF)"],
 		['Camera Follow Pos', "Value 1: X\nValue 2: Y\n\nThe camera won't change the follow point\nafter using this, for getting it back\nto normal, leave both values blank."],
 		['Alt Idle Animation', "Sets a specified suffix after the idle animation name.\nYou can use this to trigger 'idle-alt' if you set\nValue 2 to -alt\n\nValue 1: Character to set (Dad, BF or GF)\nValue 2: New suffix (Leave it blank to disable)"],
@@ -1046,7 +1043,30 @@ class ChartingState extends MusicBeatState
 		value2InputText.focusGained = () -> FlxG.stage.window.textInputEnabled = true;
 		blockPressWhileTypingOn.push(value2InputText);
 
-		// New event buttons
+var text:FlxText = new FlxText(20, 150, 0, "Value 3:");
+		tab_group_event.add(text);
+		value3InputText = new FlxUIInputText(20, 110, 100, "");
+		value3InputText.focusGained = () -> FlxG.stage.window.textInputEnabled = true;
+		blockPressWhileTypingOn.push(value3InputText);
+
+		var text:FlxText = new FlxText(20, 170, 0, "Value 4:");
+		tab_group_event.add(text);
+		value4InputText = new FlxUIInputText(20, 150, 100, "");
+		value4InputText.focusGained = () -> FlxG.stage.window.textInputEnabled = true;
+		blockPressWhileTypingOn.push(value2InputText);
+		
+		var text:FlxText = new FlxText(20, 150, 0, "Value 5:");
+		tab_group_event.add(text);
+		value5InputText = new FlxUIInputText(20, 190, 100, "");
+		value5InputText.focusGained = () -> FlxG.stage.window.textInputEnabled = true;
+		blockPressWhileTypingOn.push(value3InputText);
+
+		var text:FlxText = new FlxText(20, 210, 0, "Value 6:");
+		tab_group_event.add(text);
+		value6InputText = new FlxUIInputText(20, 150, 100, "");
+		value6InputText.focusGained = () -> FlxG.stage.window.textInputEnabled = true;
+		blockPressWhileTypingOn.push(value2InputText);
+
 		var removeButton:FlxButton = new FlxButton(eventDropDown.x + eventDropDown.width + 10, eventDropDown.y, '-', function()
 		{
 			if(curSelectedNote != null && curSelectedNote[2] == null) //Is event note
@@ -1124,6 +1144,10 @@ class ChartingState extends MusicBeatState
 		tab_group_event.add(descText);
 		tab_group_event.add(value1InputText);
 		tab_group_event.add(value2InputText);
+		tab_group_event.add(value3InputText);
+		tab_group_event.add(value4InputText);
+		tab_group_event.add(value5InputText);
+		tab_group_event.add(value6InputText);
 		tab_group_event.add(eventDropDown);
 
 		UI_box.addGroup(tab_group_event);
@@ -2498,6 +2522,10 @@ class ChartingState extends MusicBeatState
 				}
 				value1InputText.text = curSelectedNote[1][curEventSelected][1];
 				value2InputText.text = curSelectedNote[1][curEventSelected][2];
+				value3InputText.text = curSelectedNote[1][curEventSelected][3];
+				value4InputText.text = curSelectedNote[1][curEventSelected][4];
+				value5InputText.text = curSelectedNote[1][curEventSelected][5];
+				value6InputText.text = curSelectedNote[1][curEventSelected][6];
 			}
 			strumTimeInputText.text = '' + curSelectedNote[0];
 		}
@@ -2828,6 +2856,10 @@ class ChartingState extends MusicBeatState
 			var event = eventStuff[Std.parseInt(eventDropDown.selectedId)][0];
 			var text1 = value1InputText.text;
 			var text2 = value2InputText.text;
+			var text3 = value3InputText.text;
+			var text4 = value4InputText.text;
+			var tex5 = value5InputText.text;
+			var text6 = value6InputText.text;
 			_song.events.push([noteStrum, [[event, text1, text2]]]);
 			curSelectedNote = _song.events[_song.events.length - 1];
 			curEventSelected = 0;
